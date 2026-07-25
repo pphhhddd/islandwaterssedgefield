@@ -369,11 +369,10 @@
             const originalText = submitBtn.innerText;
             submitBtn.innerText = 'Sending...';
 
-            fetch(WEBHOOK_URL, {
+		fetch(WEBHOOK_URL, {
                 method: 'POST',
                 mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+                body: new URLSearchParams(payload)
             }).then(() => {
                 document.getElementById('formStatus').style.display = 'block';
                 this.reset();
@@ -382,6 +381,7 @@
                 alert("There was an error sending your message. Please email directly.");
                 submitBtn.innerText = originalText;
             });
+
         });
     </script>
 </body>
