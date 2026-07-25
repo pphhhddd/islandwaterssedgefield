@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Island Waters Holiday Accommodation | Sedgefield</title>
+    <meta name="description" content="Accommodation, Sedgefield, Garden Route, South Africa. On the water's edge.">
+    
+    <style>
+        /* Modern CSS Variables based on original color scheme */
+        :root {
+            --bg-blue: #c4e4f1;
+            --text-blue: #089cb2;
+            --white: #ffffff;
+            --font-main: "Century Gothic", "Avant Garde", sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--text-blue);
+            background-color: var(--white);
+            line-height: 1.6;
+        }
+
+        /* Typography */
+        h1, h2 {
+            font-weight: normal;
+            margin-bottom: 1rem;
+            color: var(--text-blue);
+        }
+        
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 1.8rem; margin-top: 2rem; }
+        p { margin-bottom: 1rem; font-size: 1rem; }
+        b { font-weight: 600; }
+
+        /* Navigation */
+        header {
+            background-color: var(--bg-blue);
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        nav a {
+            color: var(--text-blue);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: opacity 0.3s ease;
+        }
+
+        nav a:hover {
+            opacity: 0.7;
+            text-decoration: underline;
+        }
+
+        /* Main Layout */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+        }
+
+        .hero-img {
+            width: 100%;
+            height: auto;
+            border: 4px solid var(--white);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        /* JavaScript Gallery */
+        .gallery {
+            background-color: var(--bg-blue);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .main-image-container {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .main-image-container img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border: 2px solid var(--white);
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .thumbnails {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .thumbnails img {
+            width: 80px; /* Scaled slightly for mobile fit */
+            height: 54px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s, border-color 0.2s;
+            object-fit: cover;
+        }
+
+        .thumbnails img:hover {
+            border-color: var(--white);
+            transform: scale(1.05);
+        }
+
+        /* Accommodation Grid */
+        .acc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .acc-card {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-top: 4px solid var(--bg-blue);
+        }
+
+        .acc-card ul {
+            list-style-type: square;
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        /* Buttons & Badges */
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 1.5rem 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--text-blue);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn:hover { background-color: #067a8c; color: var(--white); text-decoration: none; }
+        .btn-whatsapp { background-color: #25D366; }
+        .btn-whatsapp:hover { background-color: #128C7E; }
+        .btn-airbnb { background-color: #FF5A5F; }
+        .btn-airbnb:hover { background-color: #e04a50; }
+
+        /* Map */
+        .map-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+        
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Panorama Footer - Matches exact spec */
+        .panorama-section {
+            background-color: var(--bg-blue);
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 3rem;
+        }
+
+        .panorama-text {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 2rem 20px;
+            font-size: 1.1rem;
+        }
+
+        .panorama-img {
+            width: 100%;
+            max-width: 900px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .footer-bar {
+            background-color: var(--white);
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .acc-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2rem; }
+            .logo { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER / NAVIGATION -->
+    <header>
+        <div class="logo">island waters</div>
+        <div class="tagline">Holiday Accommodation &bull; Sedgefield &bull; South Africa</div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#accommodation">Accommodation</a>
+            <a href="#location">Location</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        
+        <!-- HOME SECTION -->
+        <section id="home">
+            <img src="pics/panoramic_view_small.jpg" alt="Island Waters Panoramic View" class="hero-img">
+            
+            <h1>On the water's edge...</h1>
+            <p>Set along the lagoon in the idyllic seaside town of Sedgefield, Island Waters offers the perfect locale for exploring the Garden Route, or to just relax and take in the exquisite waterfront scenery.</p>
+            <p>Within the tranquil surrounds of The Island, a nature conservation area, this 5 bedroom, 5 bathroom home in calm blues with whitewashed interiors reflects seaside style with an easy-living atmosphere.</p>
+
+            <!-- INTERACTIVE JAVASCRIPT GALLERY -->
+            <div class="gallery">
+                <div class="main-image-container">
+                    <!-- Default full-size image -->
+                    <img id="main-gallery-img" src="pics/house_front_small.jpg" alt="Island Waters Main">
+                </div>
+                <!-- Thumbnails pass their full-size source to the JS function -->
+                <div class="thumbnails">
+                    <img src="pics/house_front_small.jpg" onclick="changeImage('pics/house_front_small.jpg')" alt="Front">
+                    <img src="pics/deck_view_small.jpg" onclick="changeImage('pics/deck_view_small.jpg')" alt="Deck">
+                    <img src="pics/back_deck.jpg" onclick="changeImage('pics/back_deck.jpg')" alt="Back Deck">
+                    <img src="pics/kitchen.jpg" onclick="changeImage('pics/kitchen.jpg')" alt="Kitchen">
+                    <img src="pics/bedroom.jpg" onclick="changeImage('pics/bedroom.jpg')" alt="Bedroom">
+                    <img src="pics/frontdeckcouple.jpg" onclick="changeImage('pics/frontdeckcouple.jpg')" alt="Couple on Deck">
+                    <img src="pics/bedroom2.jpg" onclick="changeImage('pics/bedroom2.jpg')" alt="Bedroom 2">
+                    <img src="pics/bathroom.jpg" onclick="changeImage('pics/bathroom.jpg')" alt="Bathroom">
+                    <img src="pics/lounge_small.jpg" onclick="changeImage('pics/lounge_small.jpg')" alt="Lounge">
+                    <img src="pics/feature.jpg" onclick="changeImage('pics/feature.jpg')" alt="Feature">
+                    <img src="pics/bedroom3.jpg" onclick="changeImage('pics/bedroom3.jpg')" alt="Bedroom 3">
+                </div>
+            </div>
+        </section>
+
+        <!-- ACCOMMODATION SECTION -->
+        <section id="accommodation">
+            <h2>Accommodation & Setup</h2>
+            <p>The upper level consists of 3 en-suite bedrooms, a fully equipped kitchen, and a living area opening onto a lagoon-facing front deck with a dining area & braai. The lower level consists of 2 self-catering apartments.</p>
+            
+            <div class="acc-grid">
+                <div class="acc-card">
+                    <b>Upper Level (Capacity: 6 adults)</b>
+                    <ul>
+                        <li>3 double en-suite bedrooms with lagoon and garden views</li>
+                        <li>Fully equipped modern kitchen</li>
+                        <li>Large open-plan living area</li>
+                        <li>Enclosed front deck with built-in braai (BBQ)</li>
+                        <li>North-facing back sun deck</li>
+                    </ul>
+                </div>
+                <div class="acc-card">
+                    <b>Lower Level (Self-Catering)</b>
+                    <ul>
+                        <li><b>Apt 1 (Cap: 2-3):</b> Double bedroom, lagoon views, sleeper couch, extra single bed, kitchenette, bathroom</li>
+                        <li><b>Apt 2 (Cap: 2-3):</b> Double bedroom with lagoon views, living area, sleeper couch, bathroom</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <p style="margin-top: 15px; font-size: 0.9rem;">
+                <em>Maximum capacity of entire house: 12 people. Cable TV available. Cleaning service available on request. Strict No Smoking policy.</em>
+            </p>
+        </section>
+
+        <!-- LOCATION SECTION -->
+        <section id="location">
+            <h2>Location</h2>
+            <p>34 President Steyn St., Sedgefield, South Africa</p>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3306.973779078768!2d22.784689999999998!3d-34.018884!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e78a31789293871%3A0x4437d3636894960c!2sIsland+Waters+Holiday+Accommodation!5e0!3m2!1sen!2sus!4v1412978330813" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact">
+            <h2>Reservations & Inquiries</h2>
+            <p>Rates vary depending on the season and group size. Contact Bev directly to inquire about availability, get a personalized quote, or ask any questions.</p>
+            
+            <div class="btn-group">
+                <!-- WhatsApp Deep Link with pre-filled message -->
+                <a href="https://wa.me/27793132229?text=Hi%20Bev,%20I'm%20interested%20in%20availability%20at%20Island%20Waters." class="btn btn-whatsapp" target="_blank">
+                    Message Bev on WhatsApp
+                </a>
+                
+                <!-- Mailto link with pre-filled subject -->
+                <a href="mailto:islandwatersinfo@gmail.com?subject=Island%20Waters%20Accommodation%20Inquiry" class="btn">
+                    Send an Email
+                </a>
+                
+                <!-- Social Proof / Airbnb Link -->
+                <a href="https://www.airbnb.co.in/rooms/17178548" class="btn btn-airbnb" target="_blank">
+                    View our 5.0 ★ Rating on Airbnb
+                </a>
+            </div>
+            
+            <p style="font-size: 0.9rem; margin-top: 1rem;">
+                <em>Alternatively, you can contact us at: +27 (0)79 313 2229 or islandwatersinfo@gmail.com</em>
+            </p>
+        </section>
+
+    </main>
+
+    <!-- PANORAMA FOOTER SEAMLESS BLEND -->
+    <div class="panorama-section">
+        <div class="panorama-text">
+            Just steps away from Sedgefield's breath-taking beaches, and only 15 minutes drive to charming Knysna and Wilderness, and 30 minutes to scenic Plettenberg Bay, Island Waters is the ideal setting for your Garden Route holiday.
+        </div>
+        <!-- Matches the bottom of the old site perfectly -->
+        <img src="pics/sedgefield_panorama_small.jpg" alt="Sedgefield Panorama" class="panorama-img">
+    </div>
+    
+    <!-- BOTTOM INFO BAR -->
+    <div class="footer-bar">
+        <span>Reservations & Inquiries:</span>
+        <a href="mailto:islandwatersinfo@gmail.com" style="color: var(--text-blue); text-decoration: none;">islandwatersinfo@gmail.com</a>
+        <span>+27 79 313 2229</span>
+    </div>
+
+    <!-- GALLERY SCRIPT -->
+    <script>
+        function changeImage(imageSrc) {
+            const mainImg = document.getElementById('main-gallery-img');
+            // Quick fade effect for smoother transitions
+            mainImg.style.opacity = 0.5;
+            setTimeout(() => {
+                mainImg.src = imageSrc;
+                mainImg.style.opacity = 1;
+            }, 150);
+        }
+    </script>
+
+</body>
+</html>
