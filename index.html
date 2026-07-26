@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Island Waters Holiday Accommodation | Sedgefield</title>
     
-    <!-- SEO & Open Graph Tags -->
     <meta id="meta-description" name="description" content="Experience uninterrupted lagoon views from a private nature conservation area in Sedgefield. 5-bedroom holiday accommodation on the Garden Route.">
     <meta property="og:title" content="Island Waters | Sedgefield Accommodation">
     <meta property="og:description" content="Idyllic waterfront holiday accommodation on the Sedgefield lagoon. Perfect for your Garden Route getaway.">
@@ -43,7 +42,7 @@
         nav a:hover, nav a.active-link { text-decoration: underline; font-weight: bold; }
 
         .lang-flags { position: absolute; top: 15px; right: 15px; display: flex; gap: 8px; flex-wrap: wrap; max-width: 150px; justify-content: flex-end;}
-        .lang-flags span { cursor: pointer; font-size: 1.2rem; opacity: 0.6; transition: opacity 0.2s; }
+        .lang-flags span { cursor: pointer; font-size: 1.2rem; opacity: 0.6; transition: opacity 0.2s; font-family: "Apple Color Emoji", "Twemoji Mozilla", "Noto Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", emoji; }
         .lang-flags span:hover, .lang-flags span.active { opacity: 1; }
 
         .page-section { padding: 2rem 20px; display: none; }
@@ -60,8 +59,9 @@
         .thumbnails img { width: 80px; height: 54px; object-fit: cover; cursor: pointer; border: 2px solid transparent; }
         .thumbnails img:hover { border-color: var(--white); }
 
-        .acc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 1.5rem; }
+        .acc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 1.5rem; }
         .acc-card { background: rgba(255, 255, 255, 0.6); padding: 20px; border-radius: 12px; border-top: 5px solid var(--text-blue); }
+        .acc-card h3 { color: var(--text-blue); margin-bottom: 15px; }
 
         .amenities-bar { background: rgba(255, 255, 255, 0.4); padding: 15px; border-radius: 8px; margin: 15px 0; }
 
@@ -76,34 +76,31 @@
 
         .contact-form { background: rgba(255, 255, 255, 0.4); padding: 20px; border-radius: 8px; margin-top: 20px; }
         .contact-form input, .contact-form textarea { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--white); border-radius: 4px; background: var(--bg-blue); color: var(--text-blue); font-family: inherit; }
-        .checkbox-group { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .checkbox-group { display: flex; align-items: center; gap: 10px; }
         .checkbox-group input[type="checkbox"] { width: auto; margin: 0; }
 
         .panorama-img { width: 100%; display: block; margin: 0; padding: 0; }
         .footer-bar { padding: 1rem; text-align: center; font-size: 0.95rem; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; }
         svg { width: 20px; height: 20px; fill: currentColor; }
     </style>
-
-<!-- Smart Phone Library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css">
     
-    <!-- Flatpickr Date Calendar Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
     <style>
-        /* Custom overrides for the new libraries to match the theme */
-        .iti { width: 100%; margin-bottom: 15px; }
+        /* Smart libraries and inline form adjustments */
+        .inline-group { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; flex-wrap: wrap; }
+        .inline-group .iti, .inline-group input[type="text"] { flex: 1 1 250px; margin-bottom: 0; }
+        .inline-group .checkbox-group { flex: 0 0 auto; margin-bottom: 0; }
+        
         .iti__flag { background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/img/flags.png"); }
         @media (min-resolution: 2x) { .iti__flag { background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/img/flags@2x.png"); } }
+        
         .guest-group { display: flex; gap: 15px; margin-bottom: 15px; }
         .guest-group > div { flex: 1; }
         .guest-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; }
         .guest-group select { width: 100%; padding: 10px; border: 1px solid var(--white); border-radius: 4px; background: var(--bg-blue); color: var(--text-blue); font-family: inherit; }
-        .date-container { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
-        .date-container input[type="text"] { margin-bottom: 0; flex-grow: 1; }
-        .date-container .checkbox-group { margin-bottom: 0; min-width: max-content; }
     </style>
-
-
 </head>
 <body>
 
@@ -121,12 +118,12 @@
             <nav>
                 <a onclick="show('home')" id="nav-home" class="active-link" data-i18n="navHome">Home</a> |
                 <a onclick="show('rates')" id="nav-rates" data-i18n="navRates">Rates & Accommodation</a> |
+                <a onclick="show('activities')" id="nav-activities" data-i18n="navActivities">Activities</a> |
                 <a onclick="show('location')" id="nav-location" data-i18n="navLocation">Location</a> |
                 <a onclick="show('contact')" id="nav-contact" data-i18n="navContact">Reservations & Inquiries</a>
             </nav>
         </header>
 
-        <!-- HOME SECTION -->
         <section id="home" class="page-section active">
             <div class="hero-img-container">
                 <img src="pics/panoramic_view_small.jpg" alt="Sedgefield Lagoon Panoramic View" class="hero-img">
@@ -163,7 +160,6 @@
             </div>
         </section>
 
-        <!-- RATES & ACCOMMODATION SECTION -->
         <section id="rates" class="page-section">
             <h1 data-i18n="ratesTitle">Accommodation Setup</h1>
             <p><b data-i18n="ratesNote">Rates vary depending on the season, group size, and duration of stay. Contact us for a personalized quote.</b></p>
@@ -192,14 +188,58 @@
             </div>
         </section>
 
-        <!-- LOCATION SECTION -->
+        <section id="activities" class="page-section">
+            <h1 data-i18n="navActivities">Activities</h1>
+            <p>This area boasts some of the most beautiful beaches in South Africa, ideal for the watersports lover and beach-bum alike.</p>
+            
+            <div style="text-align: center; margin-top: 1.5rem; margin-bottom: 2rem;">
+                <img src="pics/lagoonpaddle.jpg" alt="Lagoon Paddle" width="400" height="272" style="border: 4px solid var(--white); border-radius: 8px; max-width: 100%; height: auto;">
+            </div>
+
+            <div class="acc-grid">
+                <article class="acc-card">
+                    <h3>Watersports</h3>
+                    <ul>
+                        <li>Canoeing</li>
+                        <li>Surfing</li>
+                        <li>Parasailing</li>
+                        <li>Kitesurfing</li>
+                        <li>Waterskiing</li>
+                        <li>Fishing</li>
+                    </ul>
+                </article>
+                
+                <article class="acc-card">
+                    <h3>Garden Route Outdoor Activities</h3>
+                    <ul>
+                        <li>Golf - Visit one of the various PGA registered golf courses along our beautiful coastline.</li>
+                        <li>Tennis - Sedgefield tennis club 5 min walk away.</li>
+                        <li>Forest Hikes</li>
+                        <li>Horse Riding</li>
+                        <li>Scenic Bike Rides</li>
+                        <li>Bird Watching</li>
+                        <li>Beach Walks</li>
+                    </ul>
+                </article>
+
+                <article class="acc-card">
+                    <h3>For the more adventurous...</h3>
+                    <ul>
+                        <li>Paragliding</li>
+                        <li>Abseiling</li>
+                        <li>Bungy Jumping at Bloukrans Bridge - the world's highest bungy jump</li>
+                        <li>Canopy Tours</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
         <section id="location" class="page-section">
             <h1 data-i18n="navLocation">Location</h1>
             <p>34 President Steyn St., Sedgefield, South Africa</p>
             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3306.973779078768!2d22.784689999999998!3d-34.018884!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e78a31789293871%3A0x4437d3636894960c!2sIsland+Waters+Holiday+Accommodation!5e0!3m2!1sen!2sus!4v1412978330813" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" title="Google Maps Location"></iframe>
         </section>
 
-        <!-- CONTACT SECTION -->
         <section id="contact" class="page-section">
             <h1 data-i18n="navContact">Reservations & Inquiries</h1>
             
@@ -223,25 +263,23 @@
 
             <p data-i18n="contactIntro">Fill out the form below and we will get back to you shortly.</p>
 
-            <!-- Hidden iframe to silently catch the Google redirect -->
             <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){ showSuccess(); }"></iframe>
 
             <form id="bookingForm" class="contact-form" action="https://script.google.com/macros/s/AKfycbxkHe5JlmtGMbOrpqHEwEqo-5sqZ3W33D9aOWwa_eRz7UmR830qP6dRmz_dTHGRouWDQw/exec" method="POST" target="hidden_iframe" onsubmit="prepareSubmit()">
-<input type="text" name="name" id="name" placeholder="Your Name" required>
+                <input type="text" name="name" id="name" placeholder="Your Name" required>
                 <input type="email" name="email" id="email" placeholder="Your Email" required>
                 
-                <!-- Smart Phone Field -->
-                <input type="tel" id="phone" required>
-                <input type="hidden" name="phone" id="phone_hidden">
-                
-                <div class="checkbox-group">
-                    <input type="checkbox" id="hasWhatsapp">
-                    <label for="hasWhatsapp" data-i18n="whatsappCheck">I have WhatsApp on this number</label>
+                <div class="inline-group">
+                    <input type="tel" id="phone" required>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="hasWhatsapp">
+                        <label for="hasWhatsapp" data-i18n="whatsappCheck">I have WhatsApp on this number</label>
+                    </div>
                 </div>
+                <input type="hidden" name="phone" id="phone_hidden">
                 <input type="hidden" name="whatsapp" id="whatsapp_hidden" value="No">
 
-                <!-- Interactive Date Picker & Flexible Checkbox -->
-                <div class="date-container">
+                <div class="inline-group">
                     <input type="text" name="dates" id="dates" placeholder="Check-In to Check-Out Dates" required>
                     <div class="checkbox-group">
                         <input type="checkbox" id="flexibleDates">
@@ -250,7 +288,6 @@
                 </div>
                 <input type="hidden" name="flexible" id="flexible_hidden" value="No">
 
-                <!-- Guest Dropdowns -->
                 <div class="guest-group">
                     <div>
                         <label for="adults">Adults</label>
@@ -324,7 +361,7 @@
             en: {
                 metaDesc: "Experience uninterrupted lagoon views from a private nature conservation area in Sedgefield. 5-bedroom holiday accommodation on the Garden Route.",
                 tagline: "Holiday Accommodation &bull; Sedgefield &bull; South Africa",
-                navHome: "Home", navRates: "Rates & Accommodation", navLocation: "Location", navContact: "Reservations",
+                navHome: "Home", navRates: "Rates & Accommodation", navActivities: "Activities", navLocation: "Location", navContact: "Reservations",
                 heroCaption: "The panoramic view of the lagoon straight from your private upper deck.",
                 homeTitle: "On the water's edge...",
                 homeP1: "Experience uninterrupted lagoon views from a private nature conservation area. Set in the idyllic seaside town of Sedgefield, Island Waters offers the perfect locale for exploring the Garden Route.",
@@ -334,7 +371,7 @@
                 upperTitle: "Upper Level", upperCap: "Capacity: 6 adults",
                 accUpper: "<li>2 Queen bedrooms and 1 Double bedroom (all en-suite) with lagoon/garden views.</li><li>Fully equipped modern kitchen with a gas hob.</li><li>Large open-plan living area featuring an indoor wood burner.</li><li>Enclosed front deck with panoramic views and a large steel built-in braai (wood supplied).</li><li>North-facing back sun deck and a private garden.</li>",
                 lowerTitle: "Lower Level (Self-Catering)",
-                accLower: "<p><b>Apartment 1 (Capacity 2-3 adults):</b> Queen bedroom, living area with lagoon views, sleeper couch, extra single bed, kitchenette, bathroom.</p><br><p><b>Apartment 2 (Capacity 2-3 adults):</b> Queen bedroom with lagoon views, living area met lagoon views, sleeper couch, bathroom.</p>",
+                accLower: "<p><b>Apartment 1 (Capacity 2-3 adults):</b> Queen bedroom, living area with lagoon views, sleeper couch, extra single bed, kitchenette, bathroom.</p><br><p><b>Apartment 2 (Capacity 2-3 adults):</b> Queen bedroom with lagoon views, living area with lagoon views, sleeper couch, bathroom.</p>",
                 directBooking: "Book direct with Bev via WhatsApp, Email, or the form below for the best rates and to avoid platform fees!",
                 contactIntro: "Fill out the form below and we will get back to you shortly.",
                 whatsappCheck: "I have WhatsApp on this number", btnSend: "Send Inquiry", msgSent: "Message Sent! We will get back to you shortly."
@@ -342,7 +379,7 @@
             fr: {
                 metaDesc: "Découvrez une vue imprenable sur le lagon depuis une réserve naturelle privée à Sedgefield. Location de vacances de 5 chambres sur la Garden Route.",
                 tagline: "Location de vacances &bull; Sedgefield &bull; Afrique du Sud",
-                navHome: "Accueil", navRates: "Tarifs et Hébergement", navLocation: "Emplacement", navContact: "Réservations",
+                navHome: "Accueil", navRates: "Tarifs et Hébergement", navActivities: "Activités", navLocation: "Emplacement", navContact: "Réservations",
                 heroCaption: "La vue panoramique sur le lagon directement depuis votre terrasse supérieure privée.",
                 homeTitle: "Au bord de l'eau...",
                 homeP1: "Profitez d'une vue imprenable sur le lagon depuis une réserve naturelle privée. Situé dans la ville balnéaire idyllique de Sedgefield, Island Waters offre le cadre idéal pour explorer la Garden Route.",
@@ -360,7 +397,7 @@
             de: {
                 metaDesc: "Erleben Sie unverbauten Lagunenblick aus einem privaten Naturschutzgebiet in Sedgefield. 5-Zimmer-Ferienunterkunft an der Garden Route.",
                 tagline: "Ferienunterkunft &bull; Sedgefield &bull; Südafrika",
-                navHome: "Startseite", navRates: "Unterkunft", navLocation: "Lage", navContact: "Reservierungen",
+                navHome: "Startseite", navRates: "Unterkunft", navActivities: "Aktivitäten", navLocation: "Lage", navContact: "Reservierungen",
                 heroCaption: "Panoramablick auf die Lagune direkt von Ihrem privaten Oberdeck.",
                 homeTitle: "Am Rand des Wassers...",
                 homeP1: "Erleben Sie unverbauten Lagunenblick aus einem privaten Naturschutzgebiet. Island Waters bietet den perfekten Ausgangspunkt zur Erkundung der Garden Route.",
@@ -378,7 +415,7 @@
             nl: {
                 metaDesc: "Ervaar ononderbroken uitzicht op de lagune vanuit een privénatuurgebied in Sedgefield. Vakantieaccommodatie met 5 slaapkamers aan de Tuinroute.",
                 tagline: "Vakantieaccommodatie &bull; Sedgefield &bull; Zuid-Afrika",
-                navHome: "Home", navRates: "Accommodatie", navLocation: "Locatie", navContact: "Reserveringen",
+                navHome: "Home", navRates: "Accommodatie", navActivities: "Activiteiten", navLocation: "Locatie", navContact: "Reserveringen",
                 heroCaption: "Het panoramische uitzicht op de lagune direct vanaf uw privébovendek.",
                 homeTitle: "Aan de waterkant...",
                 homeP1: "Ervaar ononderbroken uitzicht op de lagune vanuit een privénatuurgebied. Island Waters biedt de perfecte uitvalsbasis om de Tuinroute te verkennen.",
@@ -396,7 +433,7 @@
             no: {
                 metaDesc: "Opplev uforstyrret utsikt over lagunen fra et privat naturreservat i Sedgefield. 5-roms feriehus på Garden Route.",
                 tagline: "Ferieovernatting &bull; Sedgefield &bull; Sør-Afrika",
-                navHome: "Hjem", navRates: "Overnatting", navLocation: "Beliggenhet", navContact: "Reservasjoner",
+                navHome: "Hjem", navRates: "Overnatting", navActivities: "Aktiviteter", navLocation: "Beliggenhet", navContact: "Reservasjoner",
                 heroCaption: "Panoramautsikt over lagunen rett fra din private øvre terrasse.",
                 homeTitle: "På vannkanten...",
                 homeP1: "Opplev uforstyrret utsikt over lagunen fra et privat naturreservat. Island Waters tilbyr det perfekte stedet for å utforske Garden Route.",
@@ -425,36 +462,6 @@
             });
         }
 
-        // --- NEW BULLETPROOF FORM LOGIC ---
-        let submitted = false;
-
-        function prepareSubmit() {
-            // Set the hidden field to Yes or No before sending
-            document.getElementById('whatsapp_hidden').value = document.getElementById('hasWhatsapp').checked ? "Yes" : "No";
-            
-            // Change button to visual loading state
-            document.getElementById('submitBtn').innerText = 'Sending...';
-            
-            // Flag that the form has actually been submitted
-            submitted = true;
-        }
-
-        function showSuccess() {
-            // Show the success message and clear the form
-            document.getElementById('formStatus').style.display = 'block';
-            document.getElementById('bookingForm').reset();
-            
-            // Re-apply the correct button text based on the active language
-            const currentLang = document.querySelector('.lang-flags span.active').id.replace('lang-', '');
-            document.getElementById('submitBtn').innerText = i18n[currentLang]['btnSend'];
-            
-            submitted = false; // Reset the flag
-        }
-
-
-
-
-// --- LOAD EXTERNAL LIBRARIES ---
         const flatpickrScript = document.createElement('script');
         flatpickrScript.src = 'https://cdn.jsdelivr.net/npm/flatpickr';
         flatpickrScript.onload = () => {
@@ -484,15 +491,12 @@
         };
         document.body.appendChild(intlTelScript);
 
-        // --- NEW BULLETPROOF FORM LOGIC ---
         let submitted = false;
 
         function prepareSubmit() {
-            // Set the hidden fields before sending
             document.getElementById('whatsapp_hidden').value = document.getElementById('hasWhatsapp').checked ? "Yes" : "No";
             document.getElementById('flexible_hidden').value = document.getElementById('flexibleDates').checked ? "Yes" : "No";
             
-            // Extract the fully formatted international phone number from the library
             document.getElementById('phone_hidden').value = window.phoneInput.getNumber();
             
             document.getElementById('submitBtn').innerText = 'Sending...';
@@ -508,8 +512,6 @@
             
             submitted = false; 
         }
-
-
     </script>
 </body>
 </html>
