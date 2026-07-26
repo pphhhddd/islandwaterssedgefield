@@ -83,6 +83,27 @@
         .footer-bar { padding: 1rem; text-align: center; font-size: 0.95rem; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; }
         svg { width: 20px; height: 20px; fill: currentColor; }
     </style>
+
+<!-- Smart Phone Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css">
+    
+    <!-- Flatpickr Date Calendar Library -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        /* Custom overrides for the new libraries to match the theme */
+        .iti { width: 100%; margin-bottom: 15px; }
+        .iti__flag { background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/img/flags.png"); }
+        @media (min-resolution: 2x) { .iti__flag { background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/img/flags@2x.png"); } }
+        .guest-group { display: flex; gap: 15px; margin-bottom: 15px; }
+        .guest-group > div { flex: 1; }
+        .guest-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; }
+        .guest-group select { width: 100%; padding: 10px; border: 1px solid var(--white); border-radius: 4px; background: var(--bg-blue); color: var(--text-blue); font-family: inherit; }
+        .date-container { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .date-container input[type="text"] { margin-bottom: 0; flex-grow: 1; }
+        .date-container .checkbox-group { margin-bottom: 0; min-width: max-content; }
+    </style>
+
+
 </head>
 <body>
 
@@ -206,19 +227,66 @@
             <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){ showSuccess(); }"></iframe>
 
             <form id="bookingForm" class="contact-form" action="https://script.google.com/macros/s/AKfycbxkHe5JlmtGMbOrpqHEwEqo-5sqZ3W33D9aOWwa_eRz7UmR830qP6dRmz_dTHGRouWDQw/exec" method="POST" target="hidden_iframe" onsubmit="prepareSubmit()">
-                <input type="text" name="name" id="name" placeholder="Your Name" required>
+<input type="text" name="name" id="name" placeholder="Your Name" required>
                 <input type="email" name="email" id="email" placeholder="Your Email" required>
-                <input type="tel" name="phone" id="phone" placeholder="Your Phone Number" required>
+                
+                <!-- Smart Phone Field -->
+                <input type="tel" id="phone" required>
+                <input type="hidden" name="phone" id="phone_hidden">
+                
                 <div class="checkbox-group">
                     <input type="checkbox" id="hasWhatsapp">
                     <label for="hasWhatsapp" data-i18n="whatsappCheck">I have WhatsApp on this number</label>
                 </div>
-                
-                <!-- Hidden field to correctly pass the Yes/No value to the script -->
                 <input type="hidden" name="whatsapp" id="whatsapp_hidden" value="No">
 
-                <input type="text" name="dates" id="dates" placeholder="Requested Dates / Duration" required>
-                <input type="number" name="guests" id="guests" placeholder="Number of Guests" required>
+                <!-- Interactive Date Picker & Flexible Checkbox -->
+                <div class="date-container">
+                    <input type="text" name="dates" id="dates" placeholder="Check-In to Check-Out Dates" required>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="flexibleDates">
+                        <label for="flexibleDates">I'm flexible</label>
+                    </div>
+                </div>
+                <input type="hidden" name="flexible" id="flexible_hidden" value="No">
+
+                <!-- Guest Dropdowns -->
+                <div class="guest-group">
+                    <div>
+                        <label for="adults">Adults</label>
+                        <select name="adults" id="adults" required>
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="children">Children (0-17)</label>
+                        <select name="children" id="children" required>
+                            <option value="0" selected>0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                </div>
+
                 <textarea name="message" id="message" rows="4" placeholder="Tell us a bit about your trip..."></textarea>
                 
                 <button type="submit" id="submitBtn" class="btn" data-i18n="btnSend">Send Inquiry</button>
@@ -382,6 +450,66 @@
             
             submitted = false; // Reset the flag
         }
+
+
+
+
+// --- LOAD EXTERNAL LIBRARIES ---
+        const flatpickrScript = document.createElement('script');
+        flatpickrScript.src = 'https://cdn.jsdelivr.net/npm/flatpickr';
+        flatpickrScript.onload = () => {
+            flatpickr("#dates", {
+                mode: "range",
+                minDate: "today",
+                altInput: true,
+                altFormat: "F j, Y",
+                dateFormat: "Y-m-d",
+            });
+        };
+        document.body.appendChild(flatpickrScript);
+
+        const intlTelScript = document.createElement('script');
+        intlTelScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js';
+        intlTelScript.onload = () => {
+            window.phoneInput = window.intlTelInput(document.querySelector("#phone"), {
+                initialCountry: "auto",
+                geoIpLookup: function(success, failure) {
+                    fetch("https://ipapi.co/json").then(res => res.json()).then(data => success(data.country_code)).catch(() => success("za"));
+                },
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js",
+                customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
+                    return "e.g. " + selectedCountryPlaceholder;
+                }
+            });
+        };
+        document.body.appendChild(intlTelScript);
+
+        // --- NEW BULLETPROOF FORM LOGIC ---
+        let submitted = false;
+
+        function prepareSubmit() {
+            // Set the hidden fields before sending
+            document.getElementById('whatsapp_hidden').value = document.getElementById('hasWhatsapp').checked ? "Yes" : "No";
+            document.getElementById('flexible_hidden').value = document.getElementById('flexibleDates').checked ? "Yes" : "No";
+            
+            // Extract the fully formatted international phone number from the library
+            document.getElementById('phone_hidden').value = window.phoneInput.getNumber();
+            
+            document.getElementById('submitBtn').innerText = 'Sending...';
+            submitted = true;
+        }
+
+        function showSuccess() {
+            document.getElementById('formStatus').style.display = 'block';
+            document.getElementById('bookingForm').reset();
+            
+            const currentLang = document.querySelector('.lang-flags span.active').id.replace('lang-', '');
+            document.getElementById('submitBtn').innerText = i18n[currentLang]['btnSend'];
+            
+            submitted = false; 
+        }
+
+
     </script>
 </body>
 </html>
