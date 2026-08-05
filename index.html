@@ -129,7 +129,7 @@
 </script>
 
 
-
+<script src="https://www.google.com/recaptcha/api.js?render=6Le6YnYtAAAAAOrYRMJDQpp6Z_QgXNOd8nIPP0ue"></script>
 </head>
 <body>
 
@@ -316,6 +316,7 @@
                     </div>
                 </div>
                 <input type="hidden" name="flexible" id="flexible_hidden" value="No">
+<input type="hidden" name="recaptchaToken" id="recaptcha_token_hidden">
 
                 <div class="guest-group">
                     <div>
@@ -520,19 +521,38 @@
         };
         document.body.appendChild(intlTelScript);
 
+// --- NEW reCAPTCHA-ENABLED FORM LOGIC ---
         let submitted = false;
 
         function prepareSubmit() {
-            document.getElementById('whatsapp_hidden').value = document.getElementById('hasWhatsapp').checked ? "Yes" : "No";
-            document.getElementById('flexible_hidden').value = document.getElementById('flexibleDates').checked ? "Yes" : "No";
-            
-            document.getElementById('phone_hidden').value = window.phoneInput.getNumber();
-            
+            event.preventDefault(); // Prevent default submission while we verify
             document.getElementById('submitBtn').innerText = 'Sending...';
-            submitted = true;
+
+            // Wait for reCAPTCHA to be ready
+            grecaptcha.ready(function() {
+                // Execute reCAPTCHA v3 (action: 'submit')
+                grecaptcha.execute('YOUR_SITE_KEY_HERE', {action: 'submit'})
+                    .then(function(token) {
+                        // reCAPTCHA provided a human score token. Store it in our hidden field.
+                        document.getElementById('recaptcha_token_hidden').value = token;
+
+                        // Now perform our other data prep
+                        document.getElementById('whatsapp_hidden').value = document.getElementById('hasWhatsapp').checked ? "Yes" : "No";
+                        document.getElementById('flexible_hidden').value = document.getElementById('flexibleDates').checked ? "Yes" : "No";
+                        document.getElementById('phone_hidden').value = window.phoneInput.getNumber();
+
+                        // Flag that the token is ready and trigger the actual submission
+                        submitted = true;
+                        document.getElementById('bookingForm').submit();
+                    });
+            });
         }
 
         function showSuccess() {
+            // Because the submission process has changed, we must only trigger
+            // this success message if reCAPTCHA has successfully fired first.
+            if (!submitted) return;
+
             document.getElementById('formStatus').style.display = 'block';
             document.getElementById('bookingForm').reset();
             
