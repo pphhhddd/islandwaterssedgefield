@@ -17,6 +17,26 @@ if ($gitignoreContent -notmatch $scriptName) {
     Write-Host "Added $scriptName to .gitignore" -ForegroundColor Yellow
 }
 
+# --- NEW: Inject Timestamp into index.html ---
+$indexPath = Join-Path -Path $PSScriptRoot -ChildPath "index.html"
+if (Test-Path $indexPath) {
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    $updateComment = "<!-- Last Updated: $timestamp -->"
+    
+    $htmlContent = Get-Content $indexPath -Raw
+    
+    # Check if the comment already exists; if yes, replace it. If no, inject it after DOCTYPE.
+    if ($htmlContent -match "<!-- Last Updated: .*? -->") {
+        $htmlContent = $htmlContent -replace "<!-- Last Updated: .*? -->", $updateComment
+    } else {
+        $htmlContent = $htmlContent -replace "(?i)(<!DOCTYPE html>)", "`$1`n$updateComment"
+    }
+    
+    Set-Content -Path $indexPath -Value $htmlContent
+    Write-Host "Injected timestamp into index.html: $timestamp" -ForegroundColor Magenta
+}
+# ---------------------------------------------
+
 # 3. Stage all new and modified files
 Write-Host "Staging website files..." -ForegroundColor Cyan
 git add .
@@ -25,9 +45,9 @@ git add .
 $status = git status --porcelain
 if ($status) {
     # Generate an auto-commit message with the current timestamp
-    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-    Write-Host "Found changes. Committing as 'Auto-update: $timestamp'..." -ForegroundColor Cyan
-    git commit -m "Auto-update: $timestamp" | Out-Null
+    $commitTimestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    Write-Host "Found changes. Committing as 'Auto-update: $commitTimestamp'..." -ForegroundColor Cyan
+    git commit -m "Auto-update: $commitTimestamp" | Out-Null
     
     # Push to GitHub
     Write-Host "Pushing files to GitHub Pages..." -ForegroundColor Cyan
